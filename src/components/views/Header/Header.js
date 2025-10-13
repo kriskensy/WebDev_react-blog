@@ -1,8 +1,8 @@
-import { Navbar } from "react-bootstrap";
+import MyNavbar from '../MyNavbar/MyNavbar';
 
 const Header = () => {
   return (
-    <Navbar>Navbar</Navbar>
+    <MyNavbar/>
   );
 }
 
