@@ -13,6 +13,7 @@ const Posts = () => {
       {posts.map(post => (
         <PostCard 
           key={post.id}
+          id={post.id}
           title={post.title}
           author={post.author}
           publishedDate={post.publishedDate}
