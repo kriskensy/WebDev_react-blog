@@ -1,7 +1,8 @@
+import PageTitle from "../../common/PageTitle/PageTitle";
 
 const About = () => {
   return (
-    <h2>About</h2>
+    <PageTitle>About</PageTitle>
   )
 }
 

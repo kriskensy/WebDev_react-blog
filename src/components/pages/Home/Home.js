@@ -1,7 +1,13 @@
+import { Container } from "react-bootstrap";
+import Hero from "../Hero/Hero";
+import Posts from "../../features/Posts/Posts";
 
 const Home = () => {
   return (
-    <h2>Home</h2>
+    <Container>
+      <Hero/>
+      <Posts/>
+    </Container>
   )
 }
 
