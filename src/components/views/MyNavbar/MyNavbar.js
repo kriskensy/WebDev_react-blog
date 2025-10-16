@@ -12,7 +12,7 @@ const MyNavbar = () => {
             <Nav.Link as={NavLink} to="/about">About</Nav.Link>
           </Nav>
         </Navbar.Collapse>
-        </Container>
+      </Container>
     </Navbar>
   );
 }
