@@ -12,9 +12,9 @@ const AddPostForm = () => {
 
   const [title, setTitle] = useState('');
   const [author, setAuthor] = useState('');
-  const [published, setPublished] = useState('');
+  const [publishedDate, setPublishedDate] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [mainContent, setMainContent] = useState('');
+  const [content, setContent] = useState('');
 
   const navigateToHome = () => {
     navigate('/');
@@ -22,13 +22,19 @@ const AddPostForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addPost());
+    dispatch(addPost({
+      title,
+      shortDescription,
+      content,
+      publishedDate,
+      author
+    }));
     navigateToHome();
   }
 //TODO dokonczyc formularz, poprawic przesyłanie danych do reduxa
   return (
     <Container className="col-md-8 mx-auto">
-      <PageTitle>AddPost</PageTitle>
+      <PageTitle>Add a new post</PageTitle>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3">
@@ -43,7 +49,7 @@ const AddPostForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Published</Form.Label>
-          <Form.Control placeholder="Enter date" value={published} onChange={e => setPublished(e.target.value)}></Form.Control>
+          <Form.Control placeholder="Enter date" value={publishedDate} onChange={e => setPublishedDate(e.target.value)}></Form.Control>
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -53,7 +59,7 @@ const AddPostForm = () => {
 
         <Form.Group className="mb-3">
           <Form.Label>Main Content</Form.Label>
-          <Form.Control as="textarea" rows={8} placeholder="Leave a comment here" value={mainContent} onChange={e => setMainContent(e.target.value)}></Form.Control>
+          <Form.Control as="textarea" rows={8} placeholder="Leave a comment here" value={content} onChange={e => setContent(e.target.value)}></Form.Control>
         </Form.Group>
         
         <Button variant="primary" type="submit">Add post</Button>
