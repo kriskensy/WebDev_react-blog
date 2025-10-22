@@ -41,7 +41,7 @@ const PostForm = ({ action, actionText, ...props }) => {
           <Form.Control as="textarea" rows={8} placeholder="Leave a comment here" value={content} onChange={e => setContent(e.target.value)}></Form.Control>
         </Form.Group>
         
-        <Button variant="primary" type="submit">Add post</Button>
+        <Button variant="primary" type="submit">{actionText}</Button>
       </Form>
   );
 }

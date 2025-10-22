@@ -10,13 +10,9 @@ const AddPostForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const navigateToHome = () => {
-    navigate('/');
-  }
-
   const handleSubmit = (post) => {
     dispatch(addPost(post));
-    navigateToHome();
+    navigate('/');
   }
 
   return (
