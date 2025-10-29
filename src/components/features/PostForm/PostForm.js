@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, Button } from "react-bootstrap";
+import ReactQuill from "react-quill";
 
 const PostForm = ({ action, actionText, ...props }) => {
 
