@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
-import ReactQuill from "react-quill";
+import Editor from "../Editor/Editor";
+import { Quill } from "react-quill";
+
+const Delta = Quill.import('delta');
 
 const PostForm = ({ action, actionText, ...props }) => {
 
@@ -9,6 +12,14 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [ publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
   const [ shortDescription, setShortDescription ] = useState(props.shortDescription || '');
   const [ content, setContent ] = useState(props.content || '');
+
+  const quillRef = useRef();
+
+  const handleTextChange = (delta, oldDelta, source) => {
+    if (quillRef.current) {
+      setContent(quillRef.current.root.innerHTML);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,7 +50,7 @@ const PostForm = ({ action, actionText, ...props }) => {
 
         <Form.Group className="mb-3">
           <Form.Label>Main Content</Form.Label>
-          <Form.Control as="textarea" rows={8} placeholder="Leave a comment here" value={content} onChange={e => setContent(e.target.value)}></Form.Control>
+          <Editor ref={quillRef} defaultValue={content ? new Delta(content) : null} onTextChange={handleTextChange} />
         </Form.Group>
         
         <Button variant="primary" type="submit">{actionText}</Button>
