@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPostById, removePost } from "../../../redux/postsRedux";
 import { useState } from "react";
 import CancelPostModal from "../../features/CancelPostModal/CancelPostModal";
+import { dateToStr } from "../../../utils/dateToStr";
 
 const SinglePost = () => {
 
@@ -42,7 +43,7 @@ const SinglePost = () => {
             <span className='fw-bold'>Author:</span> {postData.author}
           </p>
           <p>
-            <span className='fw-bold'>Published:</span> {postData.publishedDate}
+            <span className='fw-bold'>Published:</span> {dateToStr(postData.publishedDate)}
           </p>
         </section>
         <p dangerouslySetInnerHTML={{ __html: postData.content }} />

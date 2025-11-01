@@ -2,6 +2,7 @@ import { useState, useRef } from "react";
 import { Form, Button } from "react-bootstrap";
 import Editor from "../Editor/Editor";
 import { Quill } from "react-quill";
+import DatePicker from "react-datepicker";
 
 const Delta = Quill.import('delta');
 
@@ -12,7 +13,6 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [ publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
   const [ shortDescription, setShortDescription ] = useState(props.shortDescription || '');
   const [ content, setContent ] = useState(props.content || '');
-
   const quillRef = useRef();
 
   const handleTextChange = (delta, oldDelta, source) => {
@@ -40,7 +40,7 @@ const PostForm = ({ action, actionText, ...props }) => {
 
         <Form.Group className="mb-3">
           <Form.Label>Published</Form.Label>
-          <Form.Control placeholder="Enter date" value={publishedDate} onChange={e => setPublishedDate(e.target.value)}></Form.Control>
+          <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
         </Form.Group>
 
         <Form.Group className="mb-3">
