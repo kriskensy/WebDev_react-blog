@@ -45,7 +45,7 @@ const SinglePost = () => {
             <span className='fw-bold'>Published:</span> {postData.publishedDate}
           </p>
         </section>
-        <p>{postData.content}</p>
+        <p dangerouslySetInnerHTML={{ __html: postData.content }} />
       </article>
     );
 }
