@@ -9,10 +9,7 @@ const Delta = Quill.import('delta');
 
 const PostForm = ({ action, actionText, ...props }) => {
 
-  const [ title, setTitle] = useState(props.title || '');
-  const [ author, setAuthor ] = useState(props.author || '');
   const [ publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
-  const [ shortDescription, setShortDescription ] = useState(props.shortDescription || '');
   const [ content, setContent ] = useState(props.content || '');
   const quillRef = useRef();
   const [ contentError, setContentError ] = useState(false);
@@ -24,15 +21,21 @@ const PostForm = ({ action, actionText, ...props }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (postData) => {
     setContentError(!content)
     setDateError(!publishedDate)
     if(content && publishedDate) {
-      action({ title, author, publishedDate, shortDescription, content });
+      action({ ...postData, publishedDate, content });
     }
   };
 
-  const { register, handleSubmit: validate, formState: { errors } } = useForm();
+  const { register, handleSubmit: validate, formState: { errors } } = useForm({
+    defaultValues: {
+      title: props.title || '',
+      author: props.author || '',
+      shortDescription: props.shortDescription || ''
+    }
+  });
 
   return (
     <Form onSubmit={validate(handleSubmit)}>
@@ -42,9 +45,7 @@ const PostForm = ({ action, actionText, ...props }) => {
             {...register("title", { required: true, minLength: 3 })}
             placeholder="Enter title"
             type="text"
-            value={title}
-            onChange={e => setTitle(e.target.value)}>
-          </Form.Control>
+          />
           {errors.title && <small className="d-block form-text text-danger mt-2">This is too short (min 3 characters).</small>}
         </Form.Group>
 
@@ -54,9 +55,7 @@ const PostForm = ({ action, actionText, ...props }) => {
             {...register("author", { required: true, minLength: 3 })}
             placeholder="Enter author"
             type="text"
-            value={author}
-            onChange={e => setAuthor(e.target.value)}>
-          </Form.Control>
+          />
           {errors.author && <small className="d-block form-text text-danger mt-2">This is too short (min 3 characters)</small>}
         </Form.Group>
 
@@ -75,9 +74,8 @@ const PostForm = ({ action, actionText, ...props }) => {
             {...register("shortDescription", { required: true, minLength: 20 })}
             as="textarea" 
             rows={3} 
-            placeholder="Leave a comment here" 
-            value={shortDescription} onChange={e => setShortDescription(e.target.value)}>
-          </Form.Control>
+            placeholder="Leave a comment here"
+          />
           {errors.shortDescription && <small className="d-block form-text text-danger mt-2">This is too short (min 20 characters)</small>}
         </Form.Group>
 
