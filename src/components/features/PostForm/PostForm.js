@@ -34,18 +34,25 @@ const PostForm = ({ action, actionText, ...props }) => {
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
           <Form.Control
-          {...register("title", { required: true })}
+            {...register("title", { required: true, minLength: 3 })}
             placeholder="Enter title"
             type="text"
-            value={title} 
+            value={title}
             onChange={e => setTitle(e.target.value)}>
           </Form.Control>
-          {errors.title && <small className="d-block form-text text-danger mt-2">This field is required.</small>}
+          {errors.title && <small className="d-block form-text text-danger mt-2">This is too short (min 3 characters).</small>}
         </Form.Group>
 
         <Form.Group className="mb-3">
           <Form.Label>Author</Form.Label>
-          <Form.Control placeholder="Enter author" value={author} onChange={e => setAuthor(e.target.value)}></Form.Control>
+          <Form.Control
+            {...register("author", { required: true, minLength: 3 })}
+            placeholder="Enter author"
+            type="text"
+            value={author}
+            onChange={e => setAuthor(e.target.value)}>
+          </Form.Control>
+          {errors.author && <small className="d-block form-text text-danger mt-2">This is too short (min 3 characters)</small>}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -55,7 +62,14 @@ const PostForm = ({ action, actionText, ...props }) => {
 
         <Form.Group className="mb-3">
           <Form.Label>Short description</Form.Label>
-          <Form.Control as="textarea" rows={3} placeholder="Leave a comment here" value={shortDescription} onChange={e => setShortDescription(e.target.value)}></Form.Control>
+          <Form.Control
+            {...register("shortDescription", { required: true, minLength: 20 })}
+            as="textarea" 
+            rows={3} 
+            placeholder="Leave a comment here" 
+            value={shortDescription} onChange={e => setShortDescription(e.target.value)}>
+          </Form.Control>
+          {errors.shortDescription && <small className="d-block form-text text-danger mt-2">This is too short (min 20 characters)</small>}
         </Form.Group>
 
         <Form.Group className="mb-3">
