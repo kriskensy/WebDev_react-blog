@@ -15,6 +15,8 @@ const PostForm = ({ action, actionText, ...props }) => {
   const [ shortDescription, setShortDescription ] = useState(props.shortDescription || '');
   const [ content, setContent ] = useState(props.content || '');
   const quillRef = useRef();
+  const [ contentError, setContentError ] = useState(false);
+  const [ dateError, setDateError ] = useState(false);
 
   const handleTextChange = (delta, oldDelta, source) => {
     if (quillRef.current) {
@@ -22,9 +24,12 @@ const PostForm = ({ action, actionText, ...props }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    action({ title, author, publishedDate, shortDescription, content });
+  const handleSubmit = () => {
+    setContentError(!content)
+    setDateError(!publishedDate)
+    if(content && publishedDate) {
+      action({ title, author, publishedDate, shortDescription, content });
+    }
   };
 
   const { register, handleSubmit: validate, formState: { errors } } = useForm();
@@ -57,7 +62,11 @@ const PostForm = ({ action, actionText, ...props }) => {
 
         <Form.Group className="mb-3">
           <Form.Label>Published</Form.Label>
-          <DatePicker selected={publishedDate} onChange={(date) => setPublishedDate(date)} />
+          <DatePicker
+            selected={publishedDate}
+            onChange={(date) => setPublishedDate(date)}
+          />
+          {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
         </Form.Group>
 
         <Form.Group className="mb-3">
@@ -74,7 +83,12 @@ const PostForm = ({ action, actionText, ...props }) => {
 
         <Form.Group className="mb-3">
           <Form.Label>Main Content</Form.Label>
-          <Editor ref={quillRef} defaultValue={content ? new Delta(content) : null} onTextChange={handleTextChange} />
+          <Editor
+            ref={quillRef}
+            defaultValue={content ? new Delta(content) : null}
+            onTextChange={handleTextChange}
+          />
+          {contentError && <small className="d-block form-text text-danger mt-2">Content can't be empty</small>}
         </Form.Group>
         
         <Button variant="primary" type="submit">{actionText}</Button>
