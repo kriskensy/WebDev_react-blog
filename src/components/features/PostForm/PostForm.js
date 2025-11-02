@@ -3,6 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import Editor from "../Editor/Editor";
 import { Quill } from "react-quill";
 import DatePicker from "react-datepicker";
+import { useForm } from "react-hook-form";
 
 const Delta = Quill.import('delta');
 
@@ -26,11 +27,20 @@ const PostForm = ({ action, actionText, ...props }) => {
     action({ title, author, publishedDate, shortDescription, content });
   };
 
+  const { register, handleSubmit: validate, formState: { errors } } = useForm();
+
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={validate(handleSubmit)}>
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>
-          <Form.Control placeholder="Enter title" value={title} onChange={e => setTitle(e.target.value)}></Form.Control>
+          <Form.Control
+          {...register("title", { required: true })}
+            placeholder="Enter title"
+            type="text"
+            value={title} 
+            onChange={e => setTitle(e.target.value)}>
+          </Form.Control>
+          {errors.title && <small className="d-block form-text text-danger mt-2">This field is required.</small>}
         </Form.Group>
 
         <Form.Group className="mb-3">
