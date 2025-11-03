@@ -4,16 +4,19 @@ import Editor from "../Editor/Editor";
 import { Quill } from "react-quill";
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
+// import { useSelector } from "react-redux";
 
 const Delta = Quill.import('delta');
 
-const PostForm = ({ action, actionText, ...props }) => {
+const PostForm = ({ action, actionText, categories = [], ...props }) => {
 
   const [ publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
   const [ content, setContent ] = useState(props.content || '');
   const quillRef = useRef();
   const [ contentError, setContentError ] = useState(false);
   const [ dateError, setDateError ] = useState(false);
+  const [ category, setCategory ] = useState(props.category || '');
+  // const categories = useSelector(state => state.categories);
 
   const handleTextChange = (delta, oldDelta, source) => {
     if (quillRef.current) {
@@ -66,6 +69,18 @@ const PostForm = ({ action, actionText, ...props }) => {
             onChange={(date) => setPublishedDate(date)}
           />
           {dateError && <small className="d-block form-text text-danger mt-2">Date can't be empty</small>}
+        </Form.Group>
+
+        <Form.Group className="mb=3">
+          <Form.Label>Category</Form.Label>
+          <Form.Select
+            value={category}
+            onChange={(e) => setCategory(e.target.value)}>
+            <option value="">Select category...</option>
+            {categories.map(category => (
+              <option key={category.id} value={category.id}>{category.categoryName}</option>
+            ))}
+          </Form.Select>
         </Form.Group>
 
         <Form.Group className="mb-3">
