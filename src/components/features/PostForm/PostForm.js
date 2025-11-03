@@ -4,11 +4,11 @@ import Editor from "../Editor/Editor";
 import { Quill } from "react-quill";
 import DatePicker from "react-datepicker";
 import { useForm } from "react-hook-form";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Delta = Quill.import('delta');
 
-const PostForm = ({ action, actionText, categories = [], ...props }) => {
+const PostForm = ({ action, actionText, ...props }) => {
 
   const [ publishedDate, setPublishedDate ] = useState(props.publishedDate || '');
   const [ content, setContent ] = useState(props.content || '');
@@ -16,7 +16,7 @@ const PostForm = ({ action, actionText, categories = [], ...props }) => {
   const [ contentError, setContentError ] = useState(false);
   const [ dateError, setDateError ] = useState(false);
   const [ category, setCategory ] = useState(props.category || '');
-  // const categories = useSelector(state => state.categories);
+  const categories = useSelector(state => state.categories);
 
   const handleTextChange = (delta, oldDelta, source) => {
     if (quillRef.current) {

@@ -4,11 +4,9 @@ import { addPost } from "../../../redux/postsRedux";
 import PageTitle from "../../common/PageTitle/PageTitle";
 import { Container } from "react-bootstrap";
 import PostForm from "../PostForm/PostForm";
-import { useSelector } from "react-redux";
 
 const AddPostForm = () => {
 
-  const categories = useSelector(state => state.categories);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -23,7 +21,6 @@ const AddPostForm = () => {
       <PostForm
         action={handleSubmit}
         actionText="Add post"
-        categories={categories}
       />
     </Container>
   );
