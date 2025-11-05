@@ -3,6 +3,7 @@ import PageTitle from "../../common/PageTitle/PageTitle";
 import { Button, Stack } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getPostById, removePost } from "../../../redux/postsRedux";
+import { getCategoryById } from '../../../redux/categoriesRedux.js';
 import { useState } from "react";
 import CancelPostModal from "../../features/CancelPostModal/CancelPostModal";
 import { dateToStr } from "../../../utils/dateToStr";
@@ -11,6 +12,7 @@ const SinglePost = () => {
 
   const { id } = useParams();
   const postData = useSelector(state => getPostById(state, id));
+  const category = useSelector(state => getCategoryById(state, postData.categoryId));
 
   const [showModal, setShowModal] = useState(false);
   const handleCloseModal = () => setShowModal(false);
@@ -44,6 +46,9 @@ const SinglePost = () => {
           </p>
           <p>
             <span className='fw-bold'>Published:</span> {dateToStr(postData.publishedDate)}
+          </p>
+          <p>
+            <span className='fw-bold'>Category:</span> {category ? category.categoryName : 'Unknown'}
           </p>
         </section>
         <p dangerouslySetInnerHTML={{ __html: postData.content }} />
