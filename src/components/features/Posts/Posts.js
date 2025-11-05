@@ -5,8 +5,7 @@ import { getCategoryById, getAllCategories } from '../../../redux/categoriesRedu
 import { Container } from 'react-bootstrap';
 import PostCard from '../PostCard/PostCard.js';
 import { dateToStr } from '../../../utils/dateToStr.js';
-import { Navigate } from 'react-router-dom';
-//TODO category
+
 const Posts = () => {
 
   const posts = useSelector(getAllPosts);

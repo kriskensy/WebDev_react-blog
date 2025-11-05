@@ -1,3 +1,4 @@
+import initialState from "./initialState";
 
 //selectors
 export const getAllCategories = (state) => state.categories;
