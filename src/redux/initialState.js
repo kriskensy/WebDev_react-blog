@@ -25,7 +25,7 @@ const initialState = {
   content: 'Eating healthy is more than just choosing the right foods; it’s about lifestyle and mindset...',
   publishedDate: new Date('05-10-2025'),
   author: 'Carol Smith',
-  categoryId: '3'
+  categoryId: '1'
 },
 {
   id: '4',
@@ -52,7 +52,7 @@ const initialState = {
   content: 'Practicing mindfulness helps reduce stress and increases focus in daily life...',
   publishedDate: new Date('09-19-2025'),
   author: 'Frank Morris',
-  categoryId: '3'
+  categoryId: '1'
 },
 {
   id: '7',

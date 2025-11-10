@@ -17,7 +17,7 @@ const Categories = () => {
               key={category.id}
               category={category.categoryName}
               as={Link}
-              to={`/categories/${(category.categoryName).toLowerCase()}`}
+              to={`/categories/${(category.categoryName)}`}
             >
               {category.categoryName}
             </ListGroup.Item>
