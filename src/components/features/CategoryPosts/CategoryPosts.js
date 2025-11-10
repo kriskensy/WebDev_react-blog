@@ -19,26 +19,28 @@ const CategoryPosts = () => {
   });
 
   return (
-    <Container className={styles.categoryPostsContainer}>
+    <Container>
       <PageTitle>Category: {categoryName}</PageTitle>
-      {filteredPosts.length === 0 ? (
-        <p>No posts in this category...</p>
-      ) : (
-        filteredPosts.map(post => {
-          const category = categories.find(category => category.id === post.categoryId);
-          return (
-            <PostCard
-              key={post.id}
-              id={post.id}
-              title={post.title}
-              author={post.author}
-              publishedDate={dateToStr(post.publishedDate)}
-              shortDescription={post.shortDescription}
-              category={category ? category.categoryName : 'Unknown'}
-            />
-          )}
-        )
-      )}
+      <div className={styles.categoryPostsContainer}>
+        {filteredPosts.length === 0 ? (
+          <p>No posts in this category...</p>
+        ) : (
+          filteredPosts.map(post => {
+            const category = categories.find(category => category.id === post.categoryId);
+            return (
+              <PostCard
+                key={post.id}
+                id={post.id}
+                title={post.title}
+                author={post.author}
+                publishedDate={dateToStr(post.publishedDate)}
+                shortDescription={post.shortDescription}
+                category={category ? category.categoryName : 'Unknown'}
+              />
+            )}
+          )
+        )}
+      </div>
     </Container>
   );
 }
